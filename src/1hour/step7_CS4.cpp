@@ -78,7 +78,7 @@ int main(int argc, char *argv[]){
   vector<Ciphertext> output_inv;
 
   ifstream readtable_part1;
-  readtable_part1.open("Table/inv_100_output_new5_"+to_string(METER_NUM));
+  readtable_part1.open("Table/inv_100_output_"+to_string(METER_NUM));
   for(int w = 0; w < inv100_row ; w++) {
     Ciphertext temp;
     temp.load(context, readtable_part1);

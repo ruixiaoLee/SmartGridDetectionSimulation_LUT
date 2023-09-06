@@ -54,11 +54,6 @@ int main(int argc, char *argv[]){
   size_t row_size = slot_count/2;
   cout << "Plaintext matrix row size: " << row_size << endl;
   cout << "Slot nums = " << slot_count << endl;
-  // int64_t row_count_output=ceil((double)TABLE_SIZE_OUT/(double)row_size);
-
-  // int64_t l = row_size;
-  // int64_t row_count_fun1=ceil((double)TABLE_SIZE_AM/(double)row_size);
-  // int64_t row_count_fun2=ceil((double)TABLE_SIZE_HM/(double)row_size);
 
   Plaintext poly_dec_result1, poly_dec_result2;
   Ciphertext temp1, temp2;
@@ -69,47 +64,28 @@ int main(int argc, char *argv[]){
   string s2(argv[2]);//Result dir name
   string s3(argv[3]);//result save file
   vector<double> timeSlot_res;
-  // for(int iter=0; iter<1 ; ++iter){//24hours
-    // ifstream readFun1("Result/test_hm", ios::binary);
-    //test
-    ifstream readFun1(s2+"/finalRes_"+s1, ios::binary);
-    temp1.load(context, readFun1);
-    readFun1.close();
 
-    cout << "part1 Size after relinearization: " << temp1.size() << endl;
-    cout << "Noise budget after relinearizing (dbc = "
-        << relin_keys16.decomposition_bit_count() << endl;
+  ifstream readFun1(s2+"/finalRes_"+s1, ios::binary);
+  temp1.load(context, readFun1);
+  readFun1.close();
 
-    decryptor.decrypt(temp1, poly_dec_result1);
-    batch_encoder.decode(poly_dec_result1, dec_result1);
-///
-    //ifstream readdemo(s2+"/hm1am2hm2am1", ios::binary);
-    //Ciphertext demo;
-    //demo.load(context, readdemo);
-    //readdemo.close();
-    //Plaintext demo_p;
-    //vector<int64_t> demo_v;
-    //decryptor.decrypt(demo, demo_p);
-    //batch_encoder.decode(demo_p, demo_v);
-///
-    // bool flag1=0;
-    //for(int j=0 ; j<row_size ; j++){
-      //cout<<demo_v[j]<<" ";
-    //}
-    //cout<<"hm1am1hm2am1:"<<demo_v[0]<<endl;
-    cout<<"dec:"<<dec_result1[0]<<endl;    
-    tempRes1 = dec_result1[0]*10000/pow(2,30);
-        // temps += dec_result1[j];
-      //}
-   // }
-    cout<<endl;
-    // if(flag1==0) cout<<"NO FOUND"<<endl;
-    // cout<<"Sum_HM:"<<tempRes1<<endl;
-    cout<<"Final result:"<<tempRes1<<endl;
-    ofstream ct_ratio; //
-    ct_ratio.open(s3, ios::app);
-    ct_ratio<<tempRes1<<endl;
-    ct_ratio.close();
+  cout << "part1 Size after relinearization: " << temp1.size() << endl;
+  cout << "Noise budget after relinearizing (dbc = "
+      << relin_keys16.decomposition_bit_count() << endl;
+
+  decryptor.decrypt(temp1, poly_dec_result1);
+  batch_encoder.decode(poly_dec_result1, dec_result1);
+
+  cout<<"dec:"<<dec_result1[0]<<endl;
+  tempRes1 = dec_result1[0]*10000/pow(2,30);
+
+  cout<<endl;
+
+  cout<<"Final result:"<<tempRes1<<endl;
+  ofstream ct_ratio; //
+  ct_ratio.open(s3, ios::app);
+  ct_ratio<<tempRes1<<endl;
+  ct_ratio.close();
 
   cout<<"stop"<<endl;
 

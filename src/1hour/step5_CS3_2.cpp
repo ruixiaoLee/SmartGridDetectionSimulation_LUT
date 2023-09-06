@@ -82,36 +82,13 @@ int main(int argc, char *argv[]){
   int64_t sum_row_count_AM=ceil((double)TABLE_SIZE_AM_INV/(double)row_size);
   int64_t inv100_row=ceil((double)TABLE_SIZE_100_INV/(double)row_size);
   int64_t div_row_count_HM=ceil((double)TABLE_SIZE_DIV_HM/(double)row_size);
-  //////////////////////////////////////////////////////////////////////////////
-  //read output table
-  // vector<Ciphertext> output_AM1, output_AM2;
-  //
-  // ifstream readtable_part1;
-  // readtable_part1.open("Table/inv_SUM_AM_output_new1_"+to_string(METER_NUM));
-  // ifstream readtable_part2;
-  // readtable_part2.open("Table/inv_SUM_AM_output_new2_"+to_string(METER_NUM));
-  // for(int w = 0; w < sum_row_count_AM ; w++) {
-  //   Ciphertext temp1, temp2;
-  //   temp1.load(context, readtable_part1);
-  //   temp2.load(context, readtable_part2);
-  //   output_AM1.push_back(temp1);
-  //   output_AM2.push_back(temp2);
-  // }
-  //
-  // vector<Ciphertext> res_a1, res_a2;
-  // Ciphertext AM_rec1, AM_rec2;
-  // for(int64_t i=0 ; i<sum_row_count_AM ; i++){
-  //   Ciphertext tep;
-  //   res_a1.push_back(tep);
-  //   res_a2.push_back(tep);
-  // }
 
   vector<Ciphertext> output_HM1, output_HM2;
 
   ifstream readtablehm_part1;
-  readtablehm_part1.open("Table/div_HM_output_new14_"+to_string(METER_NUM));
+  readtablehm_part1.open("Table/div_HM_output1_"+to_string(METER_NUM));
   ifstream readtablehm_part2;
-  readtablehm_part2.open("Table/div_HM_output_new24_"+to_string(METER_NUM));
+  readtablehm_part2.open("Table/div_HM_output2_"+to_string(METER_NUM));
   for(int w = 0; w < div_row_count_HM ; w++) {
     Ciphertext temp1, temp2;
     temp1.load(context, readtablehm_part1);
@@ -136,31 +113,12 @@ int main(int argc, char *argv[]){
     cout << "===Reading query from DS===" << endl;
     ifstream PIRqueryFile(s2+"/pir_DIV_HM_"+s1);
     Ciphertext ct_query_HM0, ct_query_HM1;
-    // ct_query_AM0.load(context, PIRqueryFile);
-    // ct_query_AM1.load(context, PIRqueryFile);
+
     ct_query_HM0.load(context, PIRqueryFile);
     ct_query_HM1.load(context, PIRqueryFile);
     PIRqueryFile.close();
     cout<<"Reading query from DS > OK"<<endl;
     cout<<"LUT Processing"<<endl;
-    // omp_set_num_threads(NF);
-    // #pragma omp parallel for
-    // for (int64_t j=0 ; j<sum_row_count_AM ; j++){
-    //   Ciphertext temp_a1 = ct_query_AM1;
-    //   Ciphertext temp_a2 = ct_query_AM1;
-    //   evaluator.rotate_rows_inplace(temp_a1, -j, gal_keys);
-    //   evaluator.rotate_rows_inplace(temp_a2, -j, gal_keys);
-    //   evaluator.multiply_inplace(temp_a1, ct_query_AM0);
-    //   evaluator.multiply_inplace(temp_a2, ct_query_AM0);
-    //   evaluator.relinearize_inplace(temp_a1, relin_keys16);
-    //   evaluator.relinearize_inplace(temp_a2, relin_keys16);
-    //   evaluator.multiply_inplace(temp_a1, output_AM1[j]);
-    //   evaluator.multiply_inplace(temp_a2, output_AM2[j]);
-    //   evaluator.relinearize_inplace(temp_a1, relin_keys16);
-    //   evaluator.relinearize_inplace(temp_a2, relin_keys16);
-    //   res_a1[j]=temp_a1;
-    //   res_a2[j]=temp_a2;
-    // }
 
     omp_set_num_threads(NF);
     #pragma omp parallel for
@@ -183,14 +141,6 @@ int main(int argc, char *argv[]){
 
     // //result sum
     cout<<"===Sum result==="<<endl;
-    // AM_rec1 = res_a1[0];
-    // AM_rec2 = res_a2[0];
-    // for(int k=1 ; k<sum_row_count_AM ; k++){
-    //   evaluator.add_inplace(AM_rec1, res_a1[k]);
-    //   evaluator.add_inplace(AM_rec2, res_a2[k]);
-    // }
-    // cout << "Size after relinearization: " << AM_rec1.size() << endl;
-
     HM_rec1 = res_h1[0];
     HM_rec2 = res_h2[0];
     for(int k=1 ; k<div_row_count_HM ; k++){
@@ -202,23 +152,15 @@ int main(int argc, char *argv[]){
 
      vector<Ciphertext> zz3, zz4;
      for(int64_t ss=0 ; ss<row_size; ss++){
-       // zz1.push_back(AM_rec1);
-       // zz2.push_back(AM_rec2);
        zz3.push_back(HM_rec1);
        zz4.push_back(HM_rec2);
      }
-     // Ciphertext ct_AM1 = AM_rec1; //AM_rec1: sum all row
-     // Ciphertext ct_AM2 = AM_rec2; //AM_rec2: sum all row
      Ciphertext ct_HM1 = HM_rec1; //HM_rec1: sum all row
      Ciphertext ct_HM2 = HM_rec2; //HM_rec2: sum all row
 
      omp_set_num_threads(NF);
      #pragma omp parallel for
      for(int64_t j=1 ; j<row_size ; j++){
-       // evaluator.rotate_rows_inplace(zz1[j], j, gal_keys);
-       // evaluator.relinearize_inplace(zz1[j], relin_keys16);
-       // evaluator.rotate_rows_inplace(zz2[j], j, gal_keys);
-       // evaluator.relinearize_inplace(zz2[j], relin_keys16);
        evaluator.rotate_rows_inplace(zz3[j], j, gal_keys);
        evaluator.relinearize_inplace(zz3[j], relin_keys16);
        evaluator.rotate_rows_inplace(zz4[j], j, gal_keys);
@@ -226,8 +168,6 @@ int main(int argc, char *argv[]){
      }
 
      for(int64_t u=1 ; u<row_size ; u++){
-       // evaluator.add_inplace(ct_AM1, zz1[u]);
-       // evaluator.add_inplace(ct_AM2, zz2[u]);
        evaluator.add_inplace(ct_HM1, zz3[u]);
        evaluator.add_inplace(ct_HM2, zz4[u]);
      }

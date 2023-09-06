@@ -147,14 +147,14 @@ int main(int argc, char *argv[]){
   vector<Ciphertext> HM_tab;
 
   ifstream read_AMTable;
-  read_AMTable.open("Table/AM_input_new5_"+to_string(METER_NUM));
+  read_AMTable.open("Table/AM_input_"+to_string(METER_NUM));
   for(int w = 0; w < row_count_AM ; w++) {
     Ciphertext temp1;
     temp1.load(context, read_AMTable);
     AM_tab.push_back(temp1);
   }
   ifstream read_HMTable;
-  read_HMTable.open("Table/HM_input_new5_"+to_string(METER_NUM));
+  read_HMTable.open("Table/HM_input_"+to_string(METER_NUM));
   for(int w = 0; w < row_count_HM ; w++) {
     Ciphertext temp2;
     temp2.load(context, read_HMTable);
@@ -297,9 +297,9 @@ int main(int argc, char *argv[]){
 
     //每个小时都有一个结果，这个结果中有和table的行数一样数量的密文的结果
     ofstream result_AM; // date_ArithMean_hour
-    result_AM.open(s3+"/AM_new_"+to_string(i), ios::binary);
+    result_AM.open(s3+"/AM_"+to_string(i), ios::binary);
     ofstream result_HM;
-    result_HM.open(s3+"/HM_new_"+to_string(i), ios::binary);
+    result_HM.open(s3+"/HM_"+to_string(i), ios::binary);
     cout<<"TIME SLOT: "<<i<<endl;
     // search sum of log and save
     omp_set_num_threads(NF);

@@ -115,9 +115,9 @@ int main(int argc, char *argv[]){
   int64_t iter=stoi(s2); //hour 一个小时的数据
   //cout<<"read the file"<<s1+"_"+to_string(iter)<<endl;
   ifstream result_1;
-  result_1.open(s1+"/AM_new_"+to_string(iter), ios::binary);
+  result_1.open(s1+"/AM_"+to_string(iter), ios::binary);
   ifstream result_2;
-  result_2.open(s1+"/HM_new_"+to_string(iter), ios::binary);
+  result_2.open(s1+"/HM_"+to_string(iter), ios::binary);
   Ciphertext temp1,temp2;
   for(int w1 = 0; w1 < row_count_fun1 ; w1++) {
     temp1.load(context, result_1);
@@ -255,13 +255,13 @@ int main(int argc, char *argv[]){
   //write in a file
   cout << "===Saving query===" << endl;
   ofstream queryFileAM;
-  queryFileAM.open(s1+"/pir_AM_new_"+to_string(iter));
+  queryFileAM.open(s1+"/pir_AM_"+to_string(iter));
   ct_query_AM0.save(queryFileAM);
   ct_query_AM1.save(queryFileAM);
   queryFileAM.close();
 
   ofstream queryFileHM;
-  queryFileHM.open(s1+"/pir_HM_new_"+to_string(iter));
+  queryFileHM.open(s1+"/pir_HM_"+to_string(iter));
   ct_query_HM0.save(queryFileHM);
   ct_query_HM1.save(queryFileHM);
   queryFileHM.close();

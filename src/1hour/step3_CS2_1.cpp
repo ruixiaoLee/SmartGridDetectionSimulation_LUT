@@ -85,7 +85,7 @@ int main(int argc, char *argv[]){
   vector<Ciphertext> output_HM;
 
   ifstream readtable_part1;
-  readtable_part1.open("Table/AM_output_new1_"+to_string(METER_NUM));
+  readtable_part1.open("Table/AM_output_"+to_string(METER_NUM));
   for(int w = 0; w < row_count_AM ; w++) {
     Ciphertext temp;
     temp.load(context, readtable_part1);
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]){
     int64_t iter=stoi(s3); //hour
     //read index and PIR query from file
     cout << "===Reading query from DS===" << endl;
-    ifstream PIRqueryFile(s2+"/pir_AM_new_"+to_string(iter));//Here changed!
+    ifstream PIRqueryFile(s2+"/pir_AM_"+to_string(iter));//Here changed!
     Ciphertext ct_query_AM0, ct_query_AM1;
     ct_query_AM0.load(context, PIRqueryFile);
     ct_query_AM1.load(context, PIRqueryFile);
@@ -164,7 +164,7 @@ int main(int argc, char *argv[]){
       vector<Ciphertext> AM_tab;
       cout<<"Read table for sum 1/AM."<<endl;
       ifstream read_AMTable;
-      read_AMTable.open("Table/SUM_AM_input_new5_"+to_string(METER_NUM));
+      read_AMTable.open("Table/SUM_AM_input_"+to_string(METER_NUM));
       for(int w = 0; w < sum_row_count_AM ; w++) {
         Ciphertext temps;
         temps.load(context, read_AMTable);

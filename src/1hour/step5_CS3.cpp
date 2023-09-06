@@ -121,7 +121,7 @@ int main(int argc, char *argv[]){
     vector<Ciphertext> inv_tab;
     cout<<"Read table for sum 1/AM."<<endl;
     ifstream read_invTable;
-    read_invTable.open("Table/inv_100_input_new4_"+to_string(METER_NUM));
+    read_invTable.open("Table/inv_100_input_"+to_string(METER_NUM));
     for(int w = 0; w < inv100_row ; w++) {
       Ciphertext temps;
       temps.load(context, read_invTable);
