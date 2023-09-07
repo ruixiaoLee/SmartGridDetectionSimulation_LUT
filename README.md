@@ -3,7 +3,7 @@
 # Contents
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
-- [Building on liunx](#building-on-liunx)
+- [Building on liunx](#building-on-linux)
 - [Running on liunx](#running-on-liunx)
 - [How to use](#how-to-use)
 
