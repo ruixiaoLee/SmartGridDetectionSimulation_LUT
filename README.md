@@ -18,15 +18,15 @@ You can check the details from the paper [Look-Up Table based FHE System for Pri
 - [OpenMP](https://www.openmp.org/)
 
 # Building on linux
-Microsoft SEAL version 3.2.0, CMake and OpenMP is needed.
-For a simply test, under the ~/24hour directory, run the commands below.
+Microsoft SEAL version 3.2.0, CMake and OpenMP is needed.<br>
+For a simply test, under the `~/24hour` directory, run the commands below.
 ```
 cmake .
 make
 ```
 
 # Running on linux
-For a simply test, under the ~/24hour directory, run the commands below.
+For a simply test, under the `~/24hour` directory, run the commands below.
 ```
 python3 script.py
 ```
