@@ -3,8 +3,8 @@
 # Contents
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
-- [Building on liunx](#building-on-linux)
-- [Running on liunx](#running-on-liunx)
+- [Building on linux](#building-on-linux)
+- [Running on linux](#running-on-linux)
 - [How to use](#how-to-use)
 
 # Introduction
