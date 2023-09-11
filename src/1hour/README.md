@@ -18,19 +18,21 @@ The codes in this directory is for the one day simulation.
          |_ checkRes.cpp
 ```
 # How to use
-To use the codes, you need to add the dataset `DateWiseData` and `CMakeList.txt`in here.
+To use the codes, you need to add the dataset `DateWiseData` and `CMakeList.txt` same as `~/24hour` in here.
 The code in this file could be run as follow.
 ```
 step1_CS1 -> step2_TA1 -> step3_CS2_1 -> step4_TA2 -> step5_CS3_1 -> step5_CS3 -> step6_TA3 -> step7_CS4
                        -> step3_CS2_2              -> step5_CS3_2
 ```
-Currently, the script compute the data from 2014-01-01 to 2014-12-30. To maintain data consistency, we do not use the data on 02-29 and 12-31. When you want to simulate the data in 2016, remember to remove the data on 2016-02-29.<br>
-
-You can set the data you want to compute by editing the script and sg_simulation.hpp to set the corresponding number of meters.
-After you edit the file, please compile the codes again.<br>
-
-1. set the number of meters in `sg_simulation.hpp`.
-2. run `make` and `bin/makeEnctab_1`(or 2,3) to get the table size of `TABLE_SIZE_AM`, `TABLE_SIZE_HM` and `TABLE_SIZE_OUT`.
-3. set the number of table size in `sg_simulation.hpp`.
-4. run `make` one more time.
-5. run `script.py`, the results are saved in ctxt_res (decrypted result computed over ciphertext) and ptxt_res (result computed over plaintext).
+Running the codes, you can add a script as `~/24hour`.
+```
+bin/step1_CS1 + 'path' + 'datetime' + .txt ptxt_res/'plaintext result file' Result
+bin/step2_TA1 Result
+bin/step3_CS2_1 + 'datetime' + Result (bin/step3_CS2_2 + 'datetime' + Result)
+bin/step4_TA2 + 'datetime' + Result
+bin/step5_CS3_1 + 'datetime' + Result (bin/step5_CS3_2 + 'datetime' + Result)
+bin/step5_CS3 + 'datetime' + Result
+bin/step6_TA3 + 'datetime' + Result
+bin/step7_CS4 + 'datetime' + Result
+bin/checkRes + 'datetime' + Result ctxt_res/'ciphertext result file'
+```
