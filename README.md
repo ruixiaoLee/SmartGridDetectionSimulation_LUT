@@ -37,13 +37,13 @@ The number of smart meters: 2015 - 150, 2016 - 188, 2017 - 168. <br>
 
 Currently, the script compute the data from 2014-01-01 to 2014-12-30. To maintain data consistency, we do not use the data on 02-29 and 12-31. When you want to simulate the data in 2016, remember to remove the data on 2016-02-29.<br>
 
-You can set the data you want to compute by editing the script and sg_simulation.hpp to set the corresponding number of meters.
+You can set the data you want to compute by editing the script and `sg_simulation.hpp` to set the corresponding number of meters.<br>
 After you edit the file, please compile the codes again.<br>
 
 1. set the number of meters in `sg_simulation.hpp`.
-2. run `make` and `bin/makeEnctab_1`(or 2,3) to get the table size of `TABLE_SIZE_AM`, `TABLE_SIZE_HM` and `TABLE_SIZE_OUT`.
+2. run `make` and `bin/makeEnctab_1`(or 2,3) to get the table size of each LUT.
 3. set the number of table size in `sg_simulation.hpp`.
-4. run `make` one more time.
+4. run `make` one more time and change the period you want to compute in `script.py`.
 5. run `script.py`, the results are saved in ctxt_res (decrypted result computed over ciphertext) and ptxt_res (result computed over plaintext).
 
 ### Code construciton
